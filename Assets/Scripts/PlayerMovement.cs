@@ -10,13 +10,18 @@ public class PlayerMovement : MonoBehaviour
     public BoxCollider2D bc;
 
 
-    public float fallMultiplier = 2.5f;
-    public float lowJumpMultiplier = 2f;
+    public float fallMultiplier = 3.0f;
+    public float lowJumpMultiplier = 5f;
 
-    public float jumpSpeed = 13.0f;
-    public float movementSpeed = 8.0f;
 
     public bool isGrounded = true;
+
+    public float movementSpeed = 18.0f;
+    public float sprintSpeed = 28.0f;
+    public float jumpSpeed = 15.0f;
+
+    public 
+    
 
 
 	// Use this for initialization
@@ -31,8 +36,8 @@ public class PlayerMovement : MonoBehaviour
     void Update ()
     {
         Movement();
-
         Jump();
+        Sprint();
 
 
     }
@@ -62,9 +67,38 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetButtonDown("Jump") & isGrounded)
         {
             isGrounded = false;
-            rb.velocity = Vector2.up * jumpSpeed;
+            rb.velocity = Vector2.up * jumpSpeed * Time.fixedDeltaTime * 50.0f;
         }
 
+        if(rb.velocity.y < 0)
+        {
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
+        }
+        else if (rb.velocity.y > 0 && !Input.GetButton ("Jump"))
+        {
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
+        }
+
+    }
+
+    void Sprint()
+    {
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+
+            if(movementSpeed < sprintSpeed)
+            {
+                movementSpeed += 0.5f;
+            }
+        }
+        else
+        {
+            if(movementSpeed > 15.0f)
+            {
+                movementSpeed -= 0.5f;
+
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
