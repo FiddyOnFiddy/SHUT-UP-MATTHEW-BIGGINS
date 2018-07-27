@@ -20,7 +20,10 @@ public class PlayerMovement : MonoBehaviour
     public float sprintSpeed = 28.0f;
     public float jumpSpeed = 15.0f;
 
-    public 
+    public Animator playerAnimator;
+    public RuntimeAnimatorController idle;
+    public RuntimeAnimatorController run;
+    public RuntimeAnimatorController jump;
     
 
 
@@ -29,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         bc = gameObject.GetComponent<BoxCollider2D>();
+        playerAnimator = gameObject.GetComponent<Animator>();
+        playerAnimator.runtimeAnimatorController = idle;
 
     }
 
@@ -47,17 +52,23 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetAxisRaw("Horizontal") > 0)
         {
             rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime * 10.0f, rb.velocity.y);
+            playerAnimator.runtimeAnimatorController = run;
+            transform.rotation = new Quaternion(transform.rotation.x, 0.0f, transform.rotation.z, transform.rotation.w);
+
 
         }
         else if (Input.GetAxisRaw("Horizontal") < 0)
         {
             rb.velocity = new Vector2(-movementSpeed * Time.fixedDeltaTime * 10.0f, rb.velocity.y);
-            
+            transform.rotation = new Quaternion(transform.rotation.x, -180.0f, transform.rotation.z, transform.rotation.w);
+            playerAnimator.runtimeAnimatorController = run;
 
         }
         else
         {
             rb.velocity = new Vector2(0.0f, rb.velocity.y);
+            playerAnimator.runtimeAnimatorController = idle;
+
         }
 
     }
@@ -70,7 +81,14 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = Vector2.up * jumpSpeed * Time.fixedDeltaTime * 50.0f;
         }
 
-        if(rb.velocity.y < 0)
+        if(!isGrounded)
+        {
+            playerAnimator.runtimeAnimatorController = jump;
+
+        }
+
+
+        if (rb.velocity.y < 0)
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
         }

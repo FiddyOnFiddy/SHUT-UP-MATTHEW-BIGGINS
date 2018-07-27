@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 212032667219455310}
   - component: {fileID: 95479932339885994}
   - component: {fileID: 50055832121748194}
-  - component: {fileID: 61840162986194188}
   - component: {fileID: 114998718914351216}
   - component: {fileID: 70492063974731220}
   m_Layer: 0
@@ -65,31 +64,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &61840162986194188
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1719745733756460}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.001483202, y: -0.019284368}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.125, y: 1.140625}
-    newSize: {x: 1.125, y: 1.140625}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.93215895, y: 1.0545881}
-  m_EdgeRadius: 0
 --- !u!70 &70492063974731220
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
@@ -137,13 +111,17 @@ MonoBehaviour:
   rb: {fileID: 50055832121748194}
   slide: {fileID: 6200000, guid: 4461318d142c7e342a0ee40241c20866, type: 2}
   notSlide: {fileID: 6200000, guid: c83422d943fb1b4408941e8ec557e473, type: 2}
-  bc: {fileID: 61840162986194188}
+  bc: {fileID: 0}
   fallMultiplier: 3
   lowJumpMultiplier: 6
   isGrounded: 1
   movementSpeed: 18
   sprintSpeed: 28
   jumpSpeed: 10
+  playerAnimator: {fileID: 0}
+  idle: {fileID: 9100000, guid: d450032ec5d77ab46b1e6eeecc2cd739, type: 2}
+  run: {fileID: 9100000, guid: 01b538264d2562a48be9e3b6b8c86a9e, type: 2}
+  jump: {fileID: 9100000, guid: eacc167d61e200f438fa603b67dcbfd4, type: 2}
 --- !u!212 &212032667219455310
 SpriteRenderer:
   m_ObjectHideFlags: 1
