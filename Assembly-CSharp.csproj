@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\EnemyBehvaiourScript.cs" />
+    <Compile Include="Assets\PlayerRewindScript.cs" />
     <Compile Include="Assets\Scripts\CoinCollect.cs" />
     <Compile Include="Assets\Scripts\DeathTriggerScript.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />

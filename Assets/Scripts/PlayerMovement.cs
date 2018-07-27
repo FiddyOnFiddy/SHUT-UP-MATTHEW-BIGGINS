@@ -16,9 +16,10 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isGrounded = true;
 
-    public float movementSpeed = 18.0f;
-    public float sprintSpeed = 28.0f;
-    public float jumpSpeed = 15.0f;
+    public float movementSpeed;
+    public float sprintSpeed;
+    public float jumpSpeed;
+    float defaultMovementSpeed;
 
     public Animator playerAnimator;
     public RuntimeAnimatorController idle;
@@ -34,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
         bc = gameObject.GetComponent<BoxCollider2D>();
         playerAnimator = gameObject.GetComponent<Animator>();
         playerAnimator.runtimeAnimatorController = idle;
+        defaultMovementSpeed = movementSpeed;
+
 
     }
 
@@ -101,7 +104,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Sprint()
     {
-        if(Input.GetKey(KeyCode.LeftShift))
+        
+
+
+        if (Input.GetKey(KeyCode.LeftShift))
         {
 
             if(movementSpeed < sprintSpeed)
@@ -111,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if(movementSpeed > 15.0f)
+            if(movementSpeed > defaultMovementSpeed)
             {
                 movementSpeed -= 0.5f;
 
