@@ -24,7 +24,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         bc = gameObject.GetComponent<BoxCollider2D>();
-        bc.sharedMaterial.friction = 0.0f;
 
     }
 
@@ -34,23 +33,28 @@ public class PlayerMovement : MonoBehaviour
         Movement();
 
         Jump();
-	}
+
+
+    }
 
     void Movement()
     {
         if(Input.GetAxisRaw("Horizontal") > 0)
         {
             rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime * 10.0f, rb.velocity.y);
-            bc.sharedMaterial.friction = 0.0f;
 
         }
         else if (Input.GetAxisRaw("Horizontal") < 0)
         {
             rb.velocity = new Vector2(-movementSpeed * Time.fixedDeltaTime * 10.0f, rb.velocity.y);
-            bc.sharedMaterial.friction = 0.0f;
+            
 
         }
-        
+        else
+        {
+            rb.velocity = new Vector2(0.0f, rb.velocity.y);
+        }
+
     }
 
     void Jump()
@@ -68,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
         if(collision.gameObject.tag == "Ground")
         {
             isGrounded = true;
+
         }
     }
 }
