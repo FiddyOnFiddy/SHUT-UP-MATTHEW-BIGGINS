@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     public bool isGrounded = true;
+    public bool isMoving = false;
 
     public float movementSpeed;
     public float sprintSpeed;
@@ -47,6 +48,14 @@ public class PlayerMovement : MonoBehaviour
         Jump();
         Sprint();
 
+        if(rb.velocity.x != 0 || rb.velocity.y != 0)
+        {
+            isMoving = true;
+        }
+        else
+        {
+            isMoving = false;
+        }
 
     }
 

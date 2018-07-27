@@ -4,37 +4,76 @@ using UnityEngine;
 
 public class PlayerRewindScript : MonoBehaviour
 {
-    public List<Transform> prevPos = new List<Transform>();
+    public bool isRewinding = false;
+    Rigidbody2D rb;
+    PlayerMovement playerMovement;
 
+    public List<Vector3> positions;
 
 	// Use this for initialization
 	void Start ()
     {
-        defaultRewindTime = maxRewindTime;
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-        TrackPlayerPos();
-        RewindPlayer();
-	}
+        positions = new List<Vector3>();
+        rb = GetComponent<Rigidbody2D>();
+        playerMovement = GetComponent<PlayerMovement>();
+    }
 
-    public void RewindPlayer()
+    // Update is called once per frame
+    void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if(Input.GetKeyDown(KeyCode.LeftControl))
         {
+            StartRewind();
+        }
+        if(Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            StopRewind();
+        }
+	}
 
+    void FixedUpdate()
+    {
+        if(isRewinding)
+        {
+           //b.isKinematic = true;
+            Rewind();
+        }
+        else
+        {
+           //b.isKinematic = false;
+            Record();
         }
     }
 
-    public void TrackPlayerPos()
+    void Rewind()
     {
+        if (positions.Count > 0)
+        {
+            transform.position = positions[0];
+            positions.RemoveAt(0);
+        }
+        else
+        {
+            StopRewind();
+        }
         
-       for (int i = 0; i < prevPos.Count - 1; i++)
-       {
-         prevPos.Add(gameObject.transform);
-       }
-  
+    }
+
+    void Record ()
+    {
+        if(playerMovement.isMoving)
+        {
+            positions.Insert(0, transform.position);
+        }
+    }
+
+    public void StartRewind()
+    {
+        isRewinding = true;
+    }
+
+    public void StopRewind()
+    {
+        isRewinding = false;
     }
 }
