@@ -274,41 +274,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 114718582286519548, guid: 04b6372fc06672646a0d815b11060dee,
-        type: 2}
-      propertyPath: attackTrigger
-      value: 
-      objectReference: {fileID: 1688635121}
-    - target: {fileID: 61838719511779350, guid: 04b6372fc06672646a0d815b11060dee,
-        type: 2}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114718582286519548, guid: 04b6372fc06672646a0d815b11060dee,
-        type: 2}
-      propertyPath: rb
-      value: 
-      objectReference: {fileID: 1688635123}
-    - target: {fileID: 50471843664314046, guid: 04b6372fc06672646a0d815b11060dee,
-        type: 2}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 212614343850081576, guid: 04b6372fc06672646a0d815b11060dee,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 61172970640000986, guid: 04b6372fc06672646a0d815b11060dee,
-        type: 2}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 50471843664314046, guid: 04b6372fc06672646a0d815b11060dee,
-        type: 2}
-      propertyPath: m_GravityScale
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1543491400522678, guid: 04b6372fc06672646a0d815b11060dee, type: 2}
       propertyPath: m_IsActive
       value: 0
@@ -632,16 +597,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1688635121 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 61838719511779350, guid: 04b6372fc06672646a0d815b11060dee,
-    type: 2}
-  m_PrefabInternal: {fileID: 229191306}
---- !u!50 &1688635123 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 50471843664314046, guid: 04b6372fc06672646a0d815b11060dee,
-    type: 2}
-  m_PrefabInternal: {fileID: 229191306}
 --- !u!1 &1800431631
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +609,7 @@ GameObject:
   - component: {fileID: 1800431632}
   m_Layer: 0
   m_Name: DeathTrigger
-  m_TagString: Untagged
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

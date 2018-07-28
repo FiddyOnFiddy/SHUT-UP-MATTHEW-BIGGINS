@@ -8,6 +8,8 @@ public class EnemyBehvaiourScript : MonoBehaviour
     public BoxCollider2D attackTrigger;
     public Rigidbody2D rb;
 
+    public float fallSpeed;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -24,7 +26,7 @@ public class EnemyBehvaiourScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            rb.gravityScale = 3.0f;
+            rb.gravityScale = fallSpeed;
         }
     }
 }

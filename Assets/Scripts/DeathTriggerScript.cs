@@ -20,7 +20,7 @@ public class DeathTriggerScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && gameObject.tag == "Respawn")
         { 
             collision.gameObject.transform.position = initialPlayerPos;
 
