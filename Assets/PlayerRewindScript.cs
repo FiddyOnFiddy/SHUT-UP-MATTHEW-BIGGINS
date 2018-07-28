@@ -5,24 +5,21 @@ using UnityEngine;
 public class PlayerRewindScript : MonoBehaviour
 {
     public bool isRewinding = false;
-    Rigidbody2D rb;
     PlayerMovement playerMovement;
 
     public float rewindTime = 2.0f;
 
     public List<Vector3> positions;
-    public List<RuntimeAnimatorController> prevSprites;
-    public Animator rac;
+    public List<Quaternion> rotations;
 
     // Use this for initialization
     void Start ()
     {
         positions = new List<Vector3>();
-        prevSprites = new List<RuntimeAnimatorController>();
+        rotations = new List<Quaternion>();
 
         playerMovement = GetComponent<PlayerMovement>();
 
-        rac = GetComponent<Animator>();
 
     }
 
@@ -40,7 +37,11 @@ public class PlayerRewindScript : MonoBehaviour
         }
 
         RewindTimer();
-        
+
+        if (isRewinding)
+        {
+            playerMovement.playerAnimator.runtimeAnimatorController = playerMovement.run;
+        }
 
     }
 
@@ -58,15 +59,22 @@ public class PlayerRewindScript : MonoBehaviour
         }
     }
 
+    void RewindAnimation()
+    {
+
+    }
+
     void Rewind()
     {
-        if (positions.Count > 0 && rewindTime >= 0.0f && prevSprites.Count > 0)
+        if (positions.Count > 0 && rewindTime >= 0.0f && rotations.Count > 0)
         {
             transform.position = positions[0];
             positions.RemoveAt(0);
 
-            rac.runtimeAnimatorController = prevSprites[0];
-            prevSprites.RemoveAt(0);
+            transform.rotation = rotations[0];
+            rotations.RemoveAt(0);
+
+
         }
         else
         {
@@ -85,7 +93,7 @@ public class PlayerRewindScript : MonoBehaviour
         if (rewindTime <= 0.0f)
         {
             positions.Clear();
-            prevSprites.Clear();
+            rotations.Clear();
         }
     }
 
@@ -94,7 +102,7 @@ public class PlayerRewindScript : MonoBehaviour
         if(playerMovement.isMoving && rewindTime >= 0.0f)
         {
             positions.Insert(0, transform.position);
-            prevSprites.Insert(0, GetComponent<Animator>().runtimeAnimatorController);
+            rotations.Insert(0, transform.rotation);
         }
     }
 

@@ -55,15 +55,13 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             isMoving = false;
-            playerAnimator.runtimeAnimatorController = idle;
-
         }
 
     }
 
     void Movement()
     {
-        if(Input.GetAxisRaw("Horizontal") > 0)
+        if (Input.GetAxisRaw("Horizontal") > 0)
         {
             rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime * 10.0f, rb.velocity.y);
             playerAnimator.runtimeAnimatorController = run;
@@ -78,9 +76,11 @@ public class PlayerMovement : MonoBehaviour
             playerAnimator.runtimeAnimatorController = run;
 
         }
-        else
+        else if(GetComponent<PlayerRewindScript>().isRewinding == false)
         {
             rb.velocity = new Vector2(0.0f, rb.velocity.y);
+            playerAnimator.runtimeAnimatorController = idle;
+
         }
 
     }
