@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     public RuntimeAnimatorController run;
     public RuntimeAnimatorController jump;
     
-
+    public PlayerRewindScript playerRewindScript;
 
 	// Use this for initialization
 	void Start ()
@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
         playerAnimator = gameObject.GetComponent<Animator>();
         playerAnimator.runtimeAnimatorController = idle;
         defaultMovementSpeed = movementSpeed;
-
+        playerRewindScript = GetComponent<PlayerRewindScript>();
 
     }
 
@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement()
     {
-        if (Input.GetAxisRaw("Horizontal") > 0)
+        if (Input.GetAxisRaw("Horizontal") > 0 && playerRewindScript.isRewinding == false)
         {
             rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime * 10.0f, rb.velocity.y);
             playerAnimator.runtimeAnimatorController = run;
@@ -69,14 +69,14 @@ public class PlayerMovement : MonoBehaviour
 
 
         }
-        else if (Input.GetAxisRaw("Horizontal") < 0)
+        else if (Input.GetAxisRaw("Horizontal") < 0 && playerRewindScript.isRewinding == false)
         {
             rb.velocity = new Vector2(-movementSpeed * Time.fixedDeltaTime * 10.0f, rb.velocity.y);
             transform.rotation = new Quaternion(transform.rotation.x, -180.0f, transform.rotation.z, transform.rotation.w);
             playerAnimator.runtimeAnimatorController = run;
 
         }
-        else if(GetComponent<PlayerRewindScript>().isRewinding == false)
+        else if(playerRewindScript.isRewinding == false)
         {
             rb.velocity = new Vector2(0.0f, rb.velocity.y);
             playerAnimator.runtimeAnimatorController = idle;
@@ -87,13 +87,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        if(Input.GetButtonDown("Jump") & isGrounded)
+        if(Input.GetButtonDown("Jump") & isGrounded && playerRewindScript.isRewinding == false)
         {
             isGrounded = false;
             rb.velocity = Vector2.up * jumpSpeed * Time.fixedDeltaTime * 50.0f;
         }
 
-        if(!isGrounded)
+        if(!isGrounded && playerRewindScript.isRewinding == false)
         {
             playerAnimator.runtimeAnimatorController = jump;
 
@@ -139,6 +139,15 @@ public class PlayerMovement : MonoBehaviour
         if(collision.gameObject.tag == "Ground")
         {
             isGrounded = true;
+
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            //isGrounded = false;
 
         }
     }

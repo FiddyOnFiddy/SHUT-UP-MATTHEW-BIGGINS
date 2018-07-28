@@ -29,6 +29,7 @@ public class PlayerRewindScript : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.LeftControl))
         {
             StartRewind();
+            RewindAnimation();
         }
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
@@ -38,10 +39,7 @@ public class PlayerRewindScript : MonoBehaviour
 
         RewindTimer();
 
-        if (isRewinding)
-        {
-            playerMovement.playerAnimator.runtimeAnimatorController = playerMovement.run;
-        }
+        
 
     }
 
@@ -61,7 +59,10 @@ public class PlayerRewindScript : MonoBehaviour
 
     void RewindAnimation()
     {
-
+        if (isRewinding && playerMovement.isGrounded)
+        {
+            playerMovement.playerAnimator.runtimeAnimatorController = playerMovement.run;
+        }
     }
 
     void Rewind()
@@ -73,8 +74,6 @@ public class PlayerRewindScript : MonoBehaviour
 
             transform.rotation = rotations[0];
             rotations.RemoveAt(0);
-
-
         }
         else
         {
