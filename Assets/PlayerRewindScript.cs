@@ -11,13 +11,19 @@ public class PlayerRewindScript : MonoBehaviour
     public float rewindTime = 2.0f;
 
     public List<Vector3> positions;
+    public List<RuntimeAnimatorController> prevSprites;
+    public Animator rac;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         positions = new List<Vector3>();
-        rb = GetComponent<Rigidbody2D>();
+        prevSprites = new List<RuntimeAnimatorController>();
+
         playerMovement = GetComponent<PlayerMovement>();
+
+        rac = GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
@@ -25,7 +31,6 @@ public class PlayerRewindScript : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.LeftControl))
         {
-
             StartRewind();
         }
         if (Input.GetKeyUp(KeyCode.LeftControl))
@@ -55,10 +60,13 @@ public class PlayerRewindScript : MonoBehaviour
 
     void Rewind()
     {
-        if (positions.Count > 0 && rewindTime >= 0.0f)
+        if (positions.Count > 0 && rewindTime >= 0.0f && prevSprites.Count > 0)
         {
             transform.position = positions[0];
             positions.RemoveAt(0);
+
+            rac.runtimeAnimatorController = prevSprites[0];
+            prevSprites.RemoveAt(0);
         }
         else
         {
@@ -77,6 +85,7 @@ public class PlayerRewindScript : MonoBehaviour
         if (rewindTime <= 0.0f)
         {
             positions.Clear();
+            prevSprites.Clear();
         }
     }
 
@@ -85,6 +94,7 @@ public class PlayerRewindScript : MonoBehaviour
         if(playerMovement.isMoving && rewindTime >= 0.0f)
         {
             positions.Insert(0, transform.position);
+            prevSprites.Insert(0, GetComponent<Animator>().runtimeAnimatorController);
         }
     }
 

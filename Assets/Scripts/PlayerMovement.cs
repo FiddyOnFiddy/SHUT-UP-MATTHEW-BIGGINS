@@ -55,6 +55,8 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             isMoving = false;
+            playerAnimator.runtimeAnimatorController = idle;
+
         }
 
     }
@@ -79,8 +81,6 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb.velocity = new Vector2(0.0f, rb.velocity.y);
-            playerAnimator.runtimeAnimatorController = idle;
-
         }
 
     }

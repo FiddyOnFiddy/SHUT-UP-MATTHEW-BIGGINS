@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114998718914351216}
   - component: {fileID: 70492063974731220}
   - component: {fileID: 114863817514050792}
+  - component: {fileID: 111970714105075894}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -87,7 +88,7 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1719745733756460}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
@@ -98,6 +99,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!111 &111970714105075894
+Animation:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1719745733756460}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 064c710d9f9f3a2408325d82a2afbb31, type: 2}
+  m_Animations:
+  - {fileID: 0}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!114 &114863817514050792
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -109,6 +125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd89818536a5f354d821b108e0065038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRewinding: 0
+  rewindTime: 2
+  positions: []
 --- !u!114 &114998718914351216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -127,6 +146,7 @@ MonoBehaviour:
   fallMultiplier: 3
   lowJumpMultiplier: 6
   isGrounded: 1
+  isMoving: 0
   movementSpeed: 20
   sprintSpeed: 28
   jumpSpeed: 15

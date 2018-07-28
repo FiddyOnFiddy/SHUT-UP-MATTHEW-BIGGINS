@@ -536,7 +536,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 111970714105075894, guid: 1e8434aad22f3f44d8db0742631abe63,
+        type: 2}
+      propertyPath: m_Animations.Array.data[0]
+      value: 
+      objectReference: {fileID: 7400000, guid: 064c710d9f9f3a2408325d82a2afbb31, type: 2}
+    - target: {fileID: 95479932339885994, guid: 1e8434aad22f3f44d8db0742631abe63,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 111970714105075894, guid: 1e8434aad22f3f44d8db0742631abe63, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 1e8434aad22f3f44d8db0742631abe63, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &959980772
