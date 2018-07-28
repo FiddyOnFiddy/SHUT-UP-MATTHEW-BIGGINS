@@ -35,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         bc = gameObject.GetComponent<BoxCollider2D>();
         playerAnimator = gameObject.GetComponent<Animator>();
-        playerAnimator.runtimeAnimatorController = idle;
         defaultMovementSpeed = movementSpeed;
         playerRewindScript = GetComponent<PlayerRewindScript>();
 
@@ -47,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
         Movement();
         Jump();
         Sprint();
+        AnimationController();
 
         if(rb.velocity.x != 0 || rb.velocity.y != 0)
         {
@@ -57,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
             isMoving = false;
         }
 
+
     }
 
     void Movement()
@@ -64,38 +65,59 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetAxisRaw("Horizontal") > 0 && playerRewindScript.isRewinding == false)
         {
             rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime * 10.0f, rb.velocity.y);
-            playerAnimator.runtimeAnimatorController = run;
             transform.rotation = new Quaternion(transform.rotation.x, 0.0f, transform.rotation.z, transform.rotation.w);
-
-
         }
         else if (Input.GetAxisRaw("Horizontal") < 0 && playerRewindScript.isRewinding == false)
         {
             rb.velocity = new Vector2(-movementSpeed * Time.fixedDeltaTime * 10.0f, rb.velocity.y);
             transform.rotation = new Quaternion(transform.rotation.x, -180.0f, transform.rotation.z, transform.rotation.w);
-            playerAnimator.runtimeAnimatorController = run;
 
         }
         else if(playerRewindScript.isRewinding == false)
         {
             rb.velocity = new Vector2(0.0f, rb.velocity.y);
-            playerAnimator.runtimeAnimatorController = idle;
 
         }
 
     }
 
+    void AnimationController()
+    {
+        if (Input.GetAxisRaw("Horizontal") != 0)
+        {
+            playerAnimator.SetBool("canRun", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("canRun", false);
+        }
+
+        if(Input.GetButtonDown ("Jump"))
+        {
+            playerAnimator.SetBool("Jump", true);
+        }
+
+        if(playerRewindScript.isRewinding && isGrounded)
+        {
+            playerAnimator.SetBool("canRun", true);
+        }
+       
+        if(playerRewindScript.isRewinding && !isGrounded)
+        {
+            playerAnimator.SetBool("Jump", true);
+        }
+    }
+
     void Jump()
     {
-        if(Input.GetButtonDown("Jump") & isGrounded && playerRewindScript.isRewinding == false)
+        if(Input.GetButtonDown("Jump") & isGrounded)
         {
-            isGrounded = false;
+            //isGrounded = false;
             rb.velocity = Vector2.up * jumpSpeed * Time.fixedDeltaTime * 50.0f;
         }
 
         if(!isGrounded && playerRewindScript.isRewinding == false)
         {
-            playerAnimator.runtimeAnimatorController = jump;
 
         }
 
@@ -139,7 +161,7 @@ public class PlayerMovement : MonoBehaviour
         if(collision.gameObject.tag == "Ground")
         {
             isGrounded = true;
-
+            playerAnimator.SetBool("Jump", false);
         }
     }
 
@@ -147,7 +169,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.tag == "Ground")
         {
-            //isGrounded = false;
+            isGrounded = false;
 
         }
     }

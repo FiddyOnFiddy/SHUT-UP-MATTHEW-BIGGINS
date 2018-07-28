@@ -29,7 +29,6 @@ public class PlayerRewindScript : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.LeftControl))
         {
             StartRewind();
-            RewindAnimation();
         }
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
@@ -38,8 +37,6 @@ public class PlayerRewindScript : MonoBehaviour
         }
 
         RewindTimer();
-
-        
 
     }
 
@@ -59,10 +56,7 @@ public class PlayerRewindScript : MonoBehaviour
 
     void RewindAnimation()
     {
-        if (isRewinding && playerMovement.isGrounded)
-        {
-            playerMovement.playerAnimator.runtimeAnimatorController = playerMovement.run;
-        }
+       
     }
 
     void Rewind()
