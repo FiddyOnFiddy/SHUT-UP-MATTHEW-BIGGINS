@@ -59,8 +59,8 @@ public class PlayerMovement : MonoBehaviour
             isMoving = false;
         }
 
-
     }
+
 
     void Movement()
     {
@@ -68,14 +68,14 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime * 10.0f, rb.velocity.y);
             transform.rotation = new Quaternion(transform.rotation.x, 0.0f, transform.rotation.z, transform.rotation.w);
-            speedMultiplier = 1.5f;
+            playerAnimator.SetFloat("SpeedMultiplier", speedMultiplier);
 
         }
         else if (Input.GetAxisRaw("Horizontal") < 0 && playerRewindScript.isRewinding == false)
         {
             rb.velocity = new Vector2(-movementSpeed * Time.fixedDeltaTime * 10.0f, rb.velocity.y);
             transform.rotation = new Quaternion(transform.rotation.x, -180.0f, transform.rotation.z, transform.rotation.w);
-            speedMultiplier = 1.5f;
+            playerAnimator.SetFloat("SpeedMultiplier", speedMultiplier);
         }
         else if(playerRewindScript.isRewinding == false)
         {
@@ -147,6 +147,7 @@ public class PlayerMovement : MonoBehaviour
 
             if(movementSpeed < sprintSpeed)
             {
+                speedMultiplier = 2.0f;
                 movementSpeed += 0.5f;
                 playerAnimator.SetFloat("SpeedMultiplier", speedMultiplier);
                 speedMultiplier = 2.0f;
