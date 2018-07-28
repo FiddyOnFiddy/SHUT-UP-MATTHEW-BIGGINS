@@ -8,6 +8,8 @@ public class PlayerRewindScript : MonoBehaviour
     Rigidbody2D rb;
     PlayerMovement playerMovement;
 
+    public float rewindTime = 2.0f;
+
     public List<Vector3> positions;
 
 	// Use this for initialization
@@ -23,13 +25,19 @@ public class PlayerRewindScript : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.LeftControl))
         {
+
             StartRewind();
         }
-        if(Input.GetKeyUp(KeyCode.LeftControl))
+        if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             StopRewind();
+            rewindTime = 2.0f;
         }
-	}
+
+        RewindTimer();
+        
+
+    }
 
     void FixedUpdate()
     {
@@ -47,7 +55,7 @@ public class PlayerRewindScript : MonoBehaviour
 
     void Rewind()
     {
-        if (positions.Count > 0)
+        if (positions.Count > 0 && rewindTime >= 0.0f)
         {
             transform.position = positions[0];
             positions.RemoveAt(0);
@@ -59,9 +67,22 @@ public class PlayerRewindScript : MonoBehaviour
         
     }
 
+    void RewindTimer()
+    {
+        if (isRewinding)
+        {
+            rewindTime -= Time.deltaTime;
+        }
+
+        if (rewindTime <= 0.0f)
+        {
+            positions.Clear();
+        }
+    }
+
     void Record ()
     {
-        if(playerMovement.isMoving)
+        if(playerMovement.isMoving && rewindTime >= 0.0f)
         {
             positions.Insert(0, transform.position);
         }
